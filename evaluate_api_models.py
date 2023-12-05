@@ -206,4 +206,4 @@ if __name__ == '__main__':
     main(instructions_path="prompts_curated.json",
          model='llama-2-7b-chat',
          verbose=True,
-         weights_path=".models/llama-2-7b-chat.Q5_K_M.gguf",)
+         weights_path="./models/llama-2-7b-chat.Q5_K_M.gguf",)
