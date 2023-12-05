@@ -34,19 +34,8 @@ def load_prompts(instruction, instructions_path):
 
 
 def load_chatbot(*, model_name, configs, weights_path, add_system_prompt=True):
-    if model_name in ['gpt-3.5-turbo', 'gpt-4', 'gpt-4-0314']:
-        raise NotImplementedError(f"We do not have API keys for {model_name}.")
-        # chatbot = OpenaiModel(model_name=model_name, add_system_prompt=add_system_prompt)
-        # return chatbot, configs
-    elif model_name in ['claude-2', 'claude-instant-1']:
-        raise NotImplementedError(f"We do not have API keys for {model_name}.")
-        # chatbot = AnthropicModel(model_name=model_name)
-        # return chatbot, configs
-    elif model_name in ['llama-2-7b-chat', 'llama-2-13b-chat', 'llama-2-70b-chat']:
-        chatbot = LlamaModel(model_name=model_name, model_path=weights_path, add_system_prompt=add_system_prompt)
-        return chatbot, configs
-    else:
-        raise NotImplementedError(f"We do not have API keys for {model_name}.")
+    chatbot = LlamaModel(model_name=model_name, model_path=weights_path, add_system_prompt=add_system_prompt)
+    return chatbot, configs
 
 
 def combine_prompts(prompt, combo='rule+start'):
@@ -211,10 +200,12 @@ def eval_jailbreak_asr(
 
 
 if __name__ == '__main__':
-    for model in ['llama-2-7b-chat', 'llama-2-13b-chat', 'llama-2-70b-chat']:
-        eval_jailbreak_asr(instructions_path="prompts_curated.json",
-                           model=model,
-                           verbose=True,
-                           weights_path=f"./models/{model}.Q5_K_M.gguf",
-                           combo_list=["rule+start", "rule", "start", ""]
-                           )
+    for model in ['falcon-180b-chat']:
+        eval_jailbreak_asr(
+            instructions_path="prompts_curated.json",
+            model=model,
+            verbose=True,
+            weights_path=f"./models/{model}.Q5_K_M.gguf",
+            combo_list=["rule+start", "rule", "start", ""],
+            chat_hparams='temperature=0,max_tokens=128,top_p=0'
+            )
