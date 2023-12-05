@@ -192,8 +192,8 @@ def main(instruction=None,
         pass_probs.append(np.mean(passing_probs))
 
     summary = {
-        "pass_rates": zip(combo_list, pass_rates),
-        "pass_probs": zip(combo_list, pass_probs)
+        "pass_rates": list(zip(combo_list, pass_rates)),
+        "pass_probs": list(zip(combo_list, pass_probs))
     }
     print("Summary:", summary)
 
@@ -211,6 +211,6 @@ def main(instruction=None,
 
 if __name__ == '__main__':
     main(instructions_path="prompts_curated.json",
-         model='llama-2-7b-chat',
+         model='llama-2-70b-chat',
          verbose=True,
-         weights_path="./models/llama-2-7b-chat.Q5_K_M.gguf", )
+         weights_path="./models/llama-2-70b-chat.Q5_K_M.gguf", )
