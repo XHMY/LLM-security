@@ -1,7 +1,7 @@
 from llama_cpp import Llama
 
 
-class LlamaModel():
+class LlamaModel:
     def __init__(self,
                  system_prompt="You are a helpful assistant.",
                  model_path="/nfs/stak/users/zengyif/hpc-share/opt/llama.cpp/models/llama-2-70b-chat.Q5_K_M.gguf") -> None:
@@ -10,7 +10,6 @@ class LlamaModel():
             model_path=model_path,
             n_gpu_layers=100,
             n_ctx=1024)
-        self.system_prompt = system_prompt
 
     def fit_message(self, msg):
         if self.system_prompt is not None:
