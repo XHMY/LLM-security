@@ -33,8 +33,8 @@ def load_prompts(instruction, instructions_path):
     return instructions
 
 
-def load_chatbot(*, model_name, configs, weights_path, add_system_prompt=True):
-    chatbot = LlamaModel(model_name=model_name, model_path=weights_path, add_system_prompt=add_system_prompt)
+def load_chatbot(*, configs, weights_path):
+    chatbot = LlamaModel(model_path=weights_path, system_prompt=None)
     return chatbot, configs
 
 
@@ -116,8 +116,7 @@ def eval_jailbreak_asr(
         chat_hparams='temperature=0,max_tokens=128,top_p=0.0',
         checking="key_words",
         combo_list=("rule+start", "rule", "start", ""),
-        verbose=False,
-        add_system_prompt=False):
+        verbose=False):
     if instruction is None and instructions_path is None:
         raise ValueError(f"question and questions_path can not be None at same time.")
 
@@ -141,10 +140,8 @@ def eval_jailbreak_asr(
         else:
             configs[key] = int(value)
 
-    chatbot, configs = load_chatbot(model_name=model,
-                                    weights_path=weights_path,
-                                    configs=configs,
-                                    add_system_prompt=add_system_prompt)
+    chatbot, configs = load_chatbot(weights_path=weights_path,
+                                    configs=configs)
 
     print("Configuration of the Chatbot:")
     print(configs)
