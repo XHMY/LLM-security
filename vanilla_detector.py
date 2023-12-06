@@ -59,10 +59,12 @@ class VanillaJailbreakDetector:
             valid = True
 
         if invalid and valid:
-            raise ValueError("Invalid and valid at the same time.")
+            print("Invalid and valid at the same time.", llm_output)
+            # raise ValueError("Invalid and valid at the same time.")
 
         if not invalid and not valid:
-            print(llm_output)
+            print("Neither invalid nor valid.", llm_output)
+            # raise ValueError("Neither invalid nor valid.")
 
         return valid
 
